@@ -187,4 +187,4 @@ Para reportar bugs o sugerencias, por favor abre un issue en el repositorio.
 
 ---
 
-**Creado con ❤️ para aprendizaje y educación**
+**Creado para aprendizaje y educación**

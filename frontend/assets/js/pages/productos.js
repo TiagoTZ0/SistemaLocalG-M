@@ -7,7 +7,7 @@ function loadProductosPage() {
     setupImageListeners();
 }
 
-// Configurar listeners, etc. (manteniendo la misma lógica)
+// Configurar listeners, etc.
 function setupImageListeners() {
     const createInput = document.getElementById('imagenFile');
     if(createInput) {
@@ -99,7 +99,7 @@ async function loadProductos() {
     countHeader.innerHTML = ''; 
 
     try {
-        // 🚨 RUTA RELATIVA
+        // RUTA RELATIVA
         const response = await fetch('/api/productos'); 
         if (!response.ok) throw new Error('Error al conectar con la API del servidor');
         
@@ -248,7 +248,7 @@ async function handleProductSubmit(event) {
             imagen: finalImage
         };
         
-        // 🚨 CORRECCIÓN: USAMOS RUTA RELATIVA
+        // USAMOS RUTA RELATIVA
         const response = await fetch('/api/productos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -326,7 +326,7 @@ function setEditMode(isEditing) {
     document.getElementById('editImageControls').style.display = isEditing ? 'flex' : 'none';
 }
 
-// 🎯 FUNCIÓN CRÍTICA: handleUpdate (CORREGIDA)
+// 🎯 FUNCIÓN CRÍTICA: handleUpdate 
 async function handleUpdate(e) {
     e.preventDefault();
 
@@ -364,7 +364,7 @@ async function handleUpdate(e) {
             imagen: finalImg
         };
 
-        // 🚨 CORRECCIÓN: USAMOS RUTA RELATIVA
+        // 🚨 USAMOS RUTA RELATIVA
         const res = await fetch(`/api/productos/${currentEditId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -393,7 +393,7 @@ async function handleUpdate(e) {
 async function deleteFromModal() {
     if(!confirm("¿Estás seguro? Esta acción no se puede deshacer.")) return;
     try {
-        // 🚨 CORRECCIÓN: USAMOS RUTA RELATIVA
+        // RUTA RELATIVA
         const res = await fetch(`/api/productos/${currentEditId}`, { method: 'DELETE' });
         if (res.ok) {
             alert("Eliminado");

@@ -12,7 +12,7 @@ function handleLogin(event) {
     const selectedRole = roleSelect.value;
     const usernameTyped = document.getElementById('username').value;
     const passwordTyped = document.getElementById('password').value;
-    
+
     if (!selectedRole) {
         alert("Por favor seleccione un rol.");
         return;
