@@ -169,18 +169,6 @@ python -m http.server 3000
 }
 ```
 
-## Comparación con Versión Angular
-
-| Aspecto | Angular | Vanilla |
-|--------|---------|---------|
-| Framework Frontend | Sí | No |
-| Framework Backend | N/A | No |
-| Compilación | Vite + TypeScript | Ninguna |
-| Tamaño Inicial | ~500KB gzipped | ~50KB |
-| Complejidad | Alta | Baja |
-| Curva Aprendizaje | Media-Alta | Baja |
-| Escalabilidad | Excelente | Limitada |
-
 ## Contacto y Soporte
 
 Para reportar bugs o sugerencias, por favor abre un issue en el repositorio.
