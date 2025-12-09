@@ -9,3 +9,6 @@ __pycache__/
 start.bat
 # Puedes agregar archivos específicos de macOS o Linux si los tienes
 .DS_Store
+
+# Documentos
+Documentos

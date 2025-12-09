@@ -1,14 +1,30 @@
-# Sistema de Mueblería G&M - Versión Vanilla (Sin Frameworks)
+# Sistema de Mueblería G&M - Versión Local (Sin Frameworks)
 
-Este es una simulación completa del Sistema de Mueblería con **HTML/CSS/JavaScript vanilla** (sin frameworks) en el frontend y **Python puro** (sin frameworks como Flask/Django) en el backend.
+Sistema completo de gestión de mueblería con **HTML/CSS/JavaScript vanilla** (sin frameworks) en el frontend y **Python puro** (sin frameworks como Flask/Django) en el backend. 
 
-## Estructura del Proyecto
+**Base de datos**: Supabase PostgreSQL en la nube.
+
+## 🎯 Características Principales
+
+✅ Frontend completamente vanilla (HTML/CSS/JS puro)
+✅ Backend Python sin frameworks
+✅ Base de datos en Supabase PostgreSQL
+✅ Ejecución completamente local
+✅ API REST integrada
+✅ Autenticación con LocalStorage
+✅ Sistema de productos, clientes, pedidos y reportes
+
+## 📁 Estructura del Proyecto
 
 ```
 sistemagmnoframework/
-├── frontend/               # Aplicación web vanilla
-│   ├── index.html         # Página principal
-│   ├── pages/             # Páginas HTML
+├── .env                   # Variables de entorno (Supabase)
+├── requirements.txt       # Dependencias Python
+├── start_server.bat      # Script para iniciar (Windows)
+│
+├── frontend/
+│   ├── index.html        # Página principal
+│   ├── pages/            # Páginas HTML
 │   │   ├── login.html
 │   │   ├── register.html
 │   │   ├── home.html
@@ -25,28 +41,139 @@ sistemagmnoframework/
 │           ├── router.js
 │           └── pages/
 │               ├── login.js
+│               ├── register.js
+│               ├── home.js
 │               └── productos.js
-└── backend/               # API REST en Python
-    ├── server.py          # Servidor HTTP
-    └── data/
-        └── productos.json # Base de datos JSON
+│
+└── backend/
+    ├── server.py              # Servidor HTTP local
+    ├── database.py            # Conexión a Supabase
+    └── controllers/
+        └── producto_controller.py
 ```
 
-## Requisitos
+## 🚀 Guía de Inicio Rápido
 
-- **Frontend**: Navegador moderno (Chrome, Firefox, Safari, Edge)
-- **Backend**: Python 3.7 o superior
+### Requisitos Previos
 
-## Instalación y Ejecución
+- **Python 3.7+** - [Descargar aquí](https://www.python.org/downloads/)
+- **Cuenta en Supabase** - [Crear cuenta gratuita](https://supabase.com)
+- **Navegador moderno** - Chrome, Firefox, Safari o Edge
 
-### 1. Iniciar el Backend (Servidor Python)
+### Paso 1: Configurar Supabase
+
+1. Ingresa a [Supabase](https://supabase.com) y crea un proyecto
+2. Copia tus credenciales:
+   - Host (proyecto.supabase.co)
+   - Puerto (5432)
+   - Usuario (postgres)
+   - Contraseña
+
+### Paso 2: Configurar Variables de Entorno
+
+Edita el archivo `.env` en la raíz del proyecto:
+
+```env
+# Configuración de Supabase
+SUPABASE_HOST=tu-proyecto.supabase.co
+SUPABASE_PORT=5432
+SUPABASE_USER=postgres
+SUPABASE_PASSWORD=tu-contraseña
+
+# Configuración del servidor local
+SERVER_HOST=localhost
+SERVER_PORT=8000
+```
+
+### Paso 3: Instalar Dependencias
 
 ```bash
-# Navegar a la carpeta backend
-cd sistemagmnoframework/backend
+pip install -r requirements.txt
+```
 
-# Ejecutar el servidor
-python server.py
+### Paso 4: Iniciar el Servidor
+
+#### Opción 1: Ejecutar script (Recomendado para Windows)
+
+```bash
+# Haz doble clic en:
+start_server.bat
+```
+
+#### Opción 2: Desde línea de comandos
+
+```bash
+# Abrir CMD o PowerShell en la raíz del proyecto
+python backend\server.py
+```
+
+### Paso 5: Acceder a la Aplicación
+
+Abre tu navegador y ve a:
+```
+http://localhost:8000
+```
+
+## 📋 Credenciales de Prueba
+
+```
+Usuario: admin
+Contraseña: admin123
+Rol: Admin
+```
+
+## 🔌 Endpoints de la API
+
+```
+GET  /api/productos          - Obtener todos los productos
+POST /api/productos          - Crear nuevo producto
+PUT  /api/productos/:id      - Actualizar producto
+DEL  /api/productos/:id      - Eliminar producto
+```
+
+## 📝 Notas Importantes
+
+### Base de Datos
+- **Tipo**: PostgreSQL en Supabase (nube)
+- **Requiere**: Conexión a internet para acceder a los datos
+- **Ventajas**: 
+  - Datos sincronizados entre dispositivos
+  - Respaldo automático
+  - Sin mantenimiento local
+
+### Servidor
+- **Puerto por defecto**: 8000
+- **Host**: localhost
+- **Dirección**: http://localhost:8000
+
+### Frontend
+- **Completamente vanilla**: Sin dependencias NPM
+- **LocalStorage**: Mantiene sesión del usuario
+- **Responsive**: Adaptado para mobile y desktop
+
+## 🛠️ Solución de Problemas
+
+### "Puerto 8000 ya está en uso"
+```bash
+# Cambia el puerto en .env
+SERVER_PORT=8001
+```
+
+### "Error de conexión a Supabase"
+- Verifica que el archivo `.env` tenga las credenciales correctas
+- Asegúrate que tienes conexión a internet
+- Verifica que Supabase esté disponible (revisa el estado en supabase.com)
+
+### "Python no encontrado"
+- Reinstala Python desde https://www.python.org
+- Durante la instalación, marca la opción "Add Python to PATH"
+- Reinicia tu computadora después de instalar
+
+### Limpiar y reintentar
+```bash
+# Eliminar dependencias y reinstalar
+pip uninstall -y psycopg2-binary python-dotenv
+pip install -r requirements.txt
 ```
 
 El servidor se iniciará en `http://localhost:8000`

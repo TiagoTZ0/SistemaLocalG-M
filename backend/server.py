@@ -1,14 +1,19 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import os
-import mimetypes 
+import mimetypes
+from dotenv import load_dotenv
+
+# Cargar variables de entorno
+load_dotenv()
 
 # 1. IMPORTANTE: Importamos las nuevas funciones del controlador
 from controllers.producto_controller import obtener_productos, crear_producto, actualizar_producto, eliminar_producto
 
 # Definimos la ruta base donde están los archivos estáticos del frontend
-# Nota: La ruta se establece como el padre del directorio 'backend', que es la raíz del proyecto.
-FRONTEND_BASE_DIR = 'frontend'
+# Nota: Se calcula desde la carpeta backend hacia la carpeta frontend (padre/frontend)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_BASE_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), 'frontend')
 
 class RequestHandler(BaseHTTPRequestHandler):
     
@@ -50,7 +55,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         # Determina el tipo MIME del archivo (text/html, text/css, application/javascript)
         content_type, _ = mimetypes.guess_type(requested_file)
         if content_type is None:
-            content_type = 'application/octet-stream' # Tipo por defecto
+            # Agregar tipos MIME personalizados
+            if requested_file.endswith('.svg'):
+                content_type = 'image/svg+xml'
+            else:
+                content_type = 'application/octet-stream' # Tipo por defecto
 
         try:
             # Abre y sirve el archivo
@@ -147,13 +156,27 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 # Configuración de arranque
 if __name__ == "__main__":
-    # Asegura que el servidor use el puerto provisto por Render, o 8000 por defecto.
-    port = int(os.environ.get('PORT', 8000))
-    server_address = ('', port)
+    # Para desarrollo local: usa localhost:8000
+    # Para producción: configura SERVER_HOST y SERVER_PORT en .env
+    host = os.environ.get('SERVER_HOST', 'localhost')
+    port = int(os.environ.get('SERVER_PORT', 8000))
+    
+    server_address = (host, port)
     httpd = HTTPServer(server_address, RequestHandler)
-    print(f"Servidor G&M corriendo en el puerto {port}")
+    
+    print("\n" + "="*60)
+    print("🚀 Sistema de Mueblería G&M - SERVIDOR LOCAL")
+    print("="*60)
+    print(f"✅ Servidor corriendo en: http://{host}:{port}")
+    print(f"📋 Frontend: http://{host}:{port}")
+    print(f"🔌 API: http://{host}:{port}/api")
+    print("📌 Presiona Ctrl+C para detener el servidor")
+    print("="*60 + "\n")
+    
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        pass
-    httpd.server_close()
+        print("\n⏹️  Servidor detenido por el usuario")
+    finally:
+        httpd.server_close()
+        print("✅ Servidor cerrado correctamente")

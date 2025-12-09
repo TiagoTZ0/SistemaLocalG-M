@@ -17,20 +17,32 @@ function handleLogin(event) {
         alert("Por favor seleccione un rol.");
         return;
     }
-    if (!usernameTyped || !passwordTyped) {
-        alert("Por favor complete usuario y contraseña.");
+    if (!passwordTyped ) {
+        alert("Por favor ingrese la contraseña hdp.");
         return;
     }
 
+    if (!usernameTyped) {
+        alert("Por favor ingrese el usuario hdp.");
+        return;
+    }
+
+
+
     // SIMULACIÓN: Login exitoso forzando la identidad del rol
     const identity = identities[selectedRole];
-    
+
     const user = { 
         username: identity.name, 
         email: identity.email,
         role: selectedRole 
     };
 
+
     localStorage.setItem('user', JSON.stringify(user));
+    
+    alert("✅ ¡Bienvenido " + user.username + "!\n\nRol: " + user.role);
+    
     window.location.reload();
+
 }
