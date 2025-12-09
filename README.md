@@ -71,7 +71,7 @@ sistemagmnoframework/
 
 ### Paso 2: Configurar Variables de Entorno
 
-Edita el archivo `.env` en la raíz del proyecto:
+Edita el archivo `.env` dentro de la carpeta backend del proyecto:
 
 ```env
 # Configuración de Supabase
